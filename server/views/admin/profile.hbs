@@ -1,0 +1,204 @@
+<span id="admin-profile-page"></span>
+{{>_adminNav}}
+<div class="container-fluid mb-5">
+  <div class="row mt-5">
+    <div class="col-12 col-md-8 col-lg-9 ml-auto">
+      <div class="row">
+        <div class="col-11 col-md-5 my-5 mx-auto">
+          <div class="card shadowed">
+            <img src="{{user.avatar}}" alt="avatar" class="card-img-top" style="height: 300px;">
+            <div class="card-body text-center">
+              <h5 class="card-title mb-0">Admin:
+                <span class="text-capitalize">
+                  {{user.surname}}
+                  {{user.othernames}}
+                </span>
+              </h5>
+              <span>({{user.userRole}})</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-11 col-md-7 my-5 mx-auto">
+          <div class="card shadowed">
+            <div class="card-header bg-dark text-light">
+              <div class="d-flex justify-content-between">
+                <h3 class="card-title mb-0">
+                  Profile Details
+                </h3>
+                <div class="dropdown">
+                  <a href="#" data-toggle="dropdown" class="btn btn-sm btn-warning">
+                    <i class="fas fa-cog"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right menu-widget">
+                    <a href="#" class="dropdown-item text-capitalize font-weight-bold" data-toggle="modal"
+                      data-target="#reset-password">
+                      <i class="fas fa-undo mr-1 text-warning"></i>
+                      change password
+                    </a>
+                    <a href="#" class="dropdown-item text-capitalize font-weight-bold" data-toggle="modal"
+                      data-target="#change-avatar">
+                      <i class="fas fa-image mr-1 text-warning"></i>
+                      change avatar
+                    </a>
+                    <a href="#" class="dropdown-item text-capitalize font-weight-bold" data-toggle="modal"
+                      data-target="#edit-profile">
+                      <i class="fas fa-undo mr-1 text-warning"></i>
+                      edit profile
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <ul style="list-style-type: none;">
+                <li class="mb-1">
+                  <h5 class="text-uppercase">Surname</h5>
+                </li>
+                <li class="text-uppercase ml-2">
+                  {{user.surname}}
+                  <hr class="socket">
+                </li>
+                <li class="mb-1"></li>
+                <h5 class="text-uppercase">Othernames</h5>
+                </li>
+                <li class="text-uppercase ml-2">
+                  {{user.othernames}}
+                  <hr class="socket">
+                </li>
+                <li class="mb-1">
+                  <h5 class="text-uppercase">Email Address</h5>
+                </li>
+                <li class="text-lowercase ml-2">
+                  {{user.emailAddress}}
+                  <hr class="socket">
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="reset-password" data-backdrop="static" style="margin-top: 10%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header p-0 px-1">
+        <a href="#" class="close" data-dismiss="modal">&times;</a>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" id="reset-password-form">
+          <input type="hidden" name="id" value="{{user.id}}">
+          <div class="mb-4 text-center">
+            <p class="p-0 m-0">
+              <i class="fas fa-undo fa-2x text-warning"></i>
+            </p>
+            <h5 class="text-center">Change Password</h5>
+            <hr class="socket" />
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <input type="password" name="password" class="form-control" placeholder="New Password" id="password"
+                data-id="password">
+              <span class="input-group-append">
+                <button class="input-group-text" type="button" data-toggle="password">
+                  <i class="fas fa-eye"></i>
+                  <i class="fas fa-eye-slash hidden"></i>
+                </button>
+              </span>
+            </div>
+            <span class="error d-block" id="passwordError"></span>
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword"
+              data-id="password">
+            <span class="error d-block" id="confirmPasswordError"></span>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-outline-dark text-uppercase font-weight-bold">
+              confirm
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="change-avatar" data-backdrop="static" style="margin-top: 10%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header p-0">
+        <a href="#" class="close" data-dismiss="modal">&times;</a>
+      </div>
+      <div class="modal-body">
+        <div class="form-group text-center" style="position: relative;">
+          <div>
+            <h5 class="text-center">
+              <p class="p-0 m-0">
+                <i class="fas fa-image fa-2x text-warning"></i>
+              </p>
+              Change Profile Picture
+            </h5>
+            <hr class="socket">
+          </div>
+          <img src="{{user.avatar}}" alt="avatar" id="new-avatar" style="opacity: 0.4; width: 200px; height: 250px;" />
+          <form action="" method="post" class="text-center"
+            style="position: absolute; top: 50%; left: 50%; margin: 0px auto; transform: translate(-50%, -50%)"
+            id="file-upload-form">
+            <div id="uploadAvatarError"></div>
+
+            <label for="file-uploader" style="cursor: pointer;">
+              <i class="fas fa-camera fa-3x text-danger"></i>
+            </label>
+            <input type="hidden" name="id" value="{{user.id}}">
+            <input type="file" name="fileToUpload" id="file-uploader" class="hidden" />
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="edit-profile" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a href="" class="close" data-dismiss="modal">&times;</a>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fas fa-edit fa-3x text-warning"></i>
+          <h5 class="modal-title">
+            Edit Profile
+          </h5>
+        </div>
+        <form action="" method="post" id="update-admin-form">
+          <div class="form-group">
+            <label for="surname">Surname</label>
+            <input type="text" name="surname" class="form-control" value="{{user.surname}}" id="surname" />
+          </div>
+          <div class="form-group">
+            <label for="othernames">Othernames</label>
+            <input type="text" name="othernames" class="form-control" value="{{user.othernames}}" id="othernames" />
+          </div>
+          <div class="form-group">
+            <label for="emailAddress">Email Address</label>
+            <input type="text" name="emailAddress" class="form-control" value="{{user.emailAddress}}"
+              id="emailAddress" />
+          </div>
+          <div class="form-group text-center">
+            <input type="hidden" name="id" value="{{user.id}}">
+            <button type="submit" class="btn btn-outline-success">
+              update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

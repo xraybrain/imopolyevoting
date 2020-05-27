@@ -1,0 +1,100 @@
+<span id="election-result-page" data-id="{{electionId}}"></span>
+{{>_mainNav}}
+
+<div class="container-fluid wrapper">
+  <div class="row">
+    <div class="col-8">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light">
+          <li class="breadcrumb-item">
+            <a href="#">
+              <i class="fas fa-home mr-1"></i>
+              Home
+            </a>
+          </li>
+          <li class="breadcrumb-item active">
+            <div class="fas fa-stream mr-1"></div>
+            election results
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-2 ml-auto text-right mr-2">
+      <button class="btn btn-dark btn-sm mt-1" id="print-btn">
+        <i class="fas fa-print"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-8 mx-auto text-center py-3">
+    <i class="fas fa-list-alt fa-4x text-success"></i>
+    <h3 class="py-2">Election Result</h3>
+  </div>
+
+  <div class="col-12 col-md-8 mx-auto mb-3" style="position: relative;">
+    <input type="text" name="searchquery" id="searchquery" class="form-control shadowed w-100"
+      placeholder="Search by election title" autocomplete="off" />
+    <div class="floating-box" id="searchresult">
+      <ul id="election-search-result" class="list"></ul>
+    </div>
+  </div>
+
+  <div class="col-12 mx-auto" id="election-result-pane">
+
+  </div>
+</div>
+{{>_mainFooter}}
+
+<script type="mustache/template" id="election-search-result-template">
+\{{#elections}}
+<li>
+  <a href="#" class="view-election-result" data-id="\{{id}}" data-text="\{{title}}">\{{title}}</a>
+</li>
+\{{/elections}}
+\{{^elections}}
+  
+<div class="text-center mt-3">
+  <i class="fas fa-info-circle fa-3x mb-2"></i>
+  <p>No record found</p>
+</div>
+
+\{{/elections}}
+</script>
+
+<script type="mustache/template" id="election-result-template">
+<div class="card shadowed" id="printable">
+  <div class="card-header text-center bg-dark text-light">
+    <h3 class="card-title text-uppercase font-weight-bold">
+      \{{electionTitle}}
+    </h3>
+  </div>
+  <div class="card-body">
+    <div class="scrollable">
+      <table class="table table-striped">
+      <thead class="text-uppercase">
+        <tr>
+          <th>#</th>
+          <th>Candidate FullName</th>
+          <th>Campaign Name</th>
+          <th>Department</th>
+          <th>Aspiring Position</th>
+          <th>total votes</th>
+        </tr>
+      </thead>
+      <tbody>
+        \{{#electionResults}}
+        <tr>
+          <td>\{{sn}}.</td>
+          <td class="text-capitalize">\{{Student.surname}} \{{Student.othernames}}</td>
+          <td class="text-capitalize">\{{campaignName}}</td>
+          <td>\{{Student.Department.name}}</td>
+          <td class="text-uppercase">\{{ElectionPosition.Position.title}}</td>
+          <td class="text-center">\{{count}}</td>
+        </tr>
+        \{{/electionResults}}
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+</script>

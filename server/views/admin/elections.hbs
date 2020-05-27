@@ -1,0 +1,346 @@
+<span id="admin-elections-page"></span>
+{{>_adminNav}}
+<div class="container-fluid mb-5">
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-9 ml-auto">
+
+      <div class="row my-4 py-2">
+        <div class="col-12">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active text-warning font-weight-bold text-uppercase" data-toggle="tab" href="#home">
+                elections
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning font-weight-bold text-uppercase" data-toggle="tab" href="#menu1">
+                <i class="fas fa-plus mr-2"></i>
+                new election
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-12 py-2">
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active container" id="home">
+              <form action="" method="get">
+                <div class="form-group input-group">
+                  <input type="search" name="query" class="form-control" />
+                  <span class="input-group-append">
+                    <button class="input-group-text text-uppercase font-weight-bold bg-warning">
+                      <span>search</span>
+                      <i class="fas fa-search ml-1"></i>
+                    </button>
+                  </span>
+                </div>
+              </form>
+
+              <div class="card shadowed">
+                <div class="card-body">
+                  <div class="scrollable" style="max-height: 450px; min-height: 250px">
+                    <table class="table table-striped">
+                      <thead class="text-uppercase">
+                        <tr>
+                          <th>sn</th>
+                          <th>
+                            title
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            start date
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            end date
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            status
+                            <i class="fas fa-info-circle text-success ml-1"></i>
+                          </th>
+                          <th>
+                            action
+                            <i class="fas fa-cog text-success ml-1"></i>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="election-row-pane"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane container" id="menu1">
+              <div class="card shadowed">
+                <div class="card-header bg-dark text-warning">
+                  <h5 class="card-title">
+                    New Election
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <form action="" method="POST" id="new-election-form">
+                    <div class="error" id="formError"></div>
+                    <div class="form-group">
+                      <label for="title">Election Title:</label>
+                      <input type="text" name="title" id="title" class="form-control" autocomplete="off" />
+                      <span class="d-block error" id="titleError"></span>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="start-date">Start Date / Time</label>
+                          <input type="text" name="startDateTime" data-time-picker="date-time" id="start-date"
+                            class="form-control" autocomplete="off" />
+                          <span class="d-block error" id="startDateTimeError"></span>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="end-date">End Date / Time</label>
+                          <input type="text" name="endDateTime" id="end-date" data-time-picker="date-time"
+                            autocomplete="off" class="form-control" />
+
+                          <span class="d-block error" id="endDateTimeError"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card my-1">
+                      <div class="card-body">
+                        <h5>Contestants Positions</h5>
+
+                        <div id="contestant-position-pane">
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group text-center">
+                      <button type="submit" class="btn btn-warning text-uppercase font-weight-bold">
+                        save
+                        <i class="fas fa-save ml-2"></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script type="mustache/template" id="position-row-template">
+<div class="form-group" id="position-pane-\{{state.id}}">
+  <div class="row">
+    <div class="col-md-5 mb-1 mb-md-0">
+      <select name="positionId" class="form-control">
+        <option value="">select position</option>
+        \{{#positions}}
+        <option value="\{{id}}">\{{title}}</option>
+        \{{/positions}}
+      </select>
+    </div>
+    <div class="col-md-4 mb-1 mb""-md-0">
+      <input type="number" name="formPrice" class="form-control" placeholder="Application Fee" autocomplete="off"/>
+    </div>
+    <div class="col-md-3 mb-1 mb-md-0">
+      <div class="d-flex justify-content-around justify-content-md-between">
+        <button class="btn btn-outline-success mr-1 add-contestant-position-btn" type="button" data-id="\{{state.id}}">add</button>
+        <button class="btn btn-outline-danger delete-contestant-position-btn" data-target="#position-pane-\{{state.id}}" type="button" disabled="true">delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="mustache/template" id="election-row-template">
+  \{{#elections}}
+  <tr>
+    <td>\{{sn}}.</td>
+    <td>\{{title}}</td>
+    <td>\{{startDateTimeFormatted}}</td>
+    <td>\{{endDateTimeFormatted}}</td>
+    <td>\{{status}}</td>
+    <td>
+      <div class="">
+        
+        <div class="dropdown" style="z-idex: 1000;">
+          <button class="btn btn-sm btn-info" data-toggle="dropdown">
+            more ...
+          </button>
+          <div class="dropdown-menu">
+            <span class="dropdown-item">
+              <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#election-positions-\{{id}}">
+                positions
+              </button>
+            </span>
+            <a href="#" class="dropdown-item">active/inactive</a>
+            <span class="dropdown-item">
+              <button class="btn btn-sm btn-success mr-1" data-toggle="modal" data-target="#edit-election-\{{id}}">
+                edit
+                <i class="fas fa-edit"></i>
+              </button>
+            </span>
+            <span class="dropdown-item">
+              <form action="" method="post" id="delete-election-form-\{{id}}">
+                <input type="hidden" name="id" value="\{{id}}"/>
+                <button type="submit" class="btn btn-sm btn-danger mr-1 delete-election-btn" data-target-form="#delete-election-form-\{{id}}">
+                  delete
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </form>
+            </span>
+          </div>
+        </div>
+
+        <!-- edit election modal -->
+        <div class="modal fade" id="edit-election-\{{id}}" data-backdrop="static">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <i class="fas fa-edit fa-2x ml-2"></i>
+                <h5>Edit Election</h5>
+              </div>
+              <div class="modal-body">
+                <form action="" method="post" class="update-election-form" id="update-election-form-\{{id}}">
+                  <div class="error" id="editFormError"></div>
+                  <div class="form-group">
+                    <input type="text" name="title" value="\{{title}}" class="form-control"/>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="startDateTime" value="\{{startDateTime}}" class="form-control" data-time-picker="date-time"/>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="endDateTime" value="\{{endDateTime}}" class="form-control" data-time-picker="date-time">
+                  </div>
+                  <div class="form-group text-center">
+                    <input type="hidden" name="id" value="\{{id}}" />
+                    <button type="submit" class="btn btn-outline-success">
+                      update
+                      <div class="fas fa-save ml-2"></div>
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="text-left btn btn-sm btn-danger" data-dismiss="modal">
+                  close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of edit election modal -->
+        
+        <!-- Election positions Modal -->
+        <div class="modal fade" id="election-positions-\{{id}}" data-backdrop="static">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <h5 class="text-capitalize">\{{title}}</h5>
+                <hr class="socket">
+
+                <h6>Election Positions</h6>
+                <div class="card">
+                  <div class="card-body">
+                    <table class="table table-striped">
+                      <thead>
+                        <th>Position</th>
+                        <th>Form Price</th>
+                        <th>Action</th>
+                      </thead>
+                      <tbody id="election-positions-row">
+                        \{{#ElectionPositions}}
+                        <tr id="delete-election-pane-\{{id}}">
+                          <td>\{{Position.title}}</td>
+                          <td>\{{formPrice}}</td>
+                          <td>
+                            <form action="" method="post" id="delete-election-position-form-\{{id}}">
+                              <input type="hidden" name="id" value="\{{id}}">
+                              <button class="btn btn-sm btn-danger delete-election-position-btn" data-target-form="#delete-election-position-form-\{{id}}" data-target-pane="#delete-election-pane-\{{id}}">
+                                delete
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
+                            </form>
+                          </td>
+                        </tr>
+                        \{{/ElectionPositions}}
+                      </tbody>
+                    </table>
+                    <div class="card">
+                      <div class="card-body">
+                        <form method="post" class="add-election-position-form">
+                          <div class="error" id="electionPositionError"></div>
+                        <div class="form-group" id="position-pane-\{{state.id}}">
+                          <div class="row">
+                            <div class="col-md-5 mb-1 mb-md-0">
+                              <select name="positionId" class="form-control election-positions" id="">
+                                <option value="">position</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4 mb-1 mb""-md-0">
+                              <input type="number" name="formPrice" class="form-control" placeholder="price" autocomplete="off"/>
+                            </div>
+                            <div class="col-md-3 mb-1 mb-md-0">
+                              <input type="hidden" name="electionId" value="\{{id}}" />
+                              <button class="btn btn-outline-success text-center" type="submit" style="border-radius: 50%;">
+                                <i class="fas fa-plus mx-auto"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="text-left btn btn-sm btn-danger" data-dismiss="modal">
+                    close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+  \{{/elections}}
+</script>
+
+<script type="mustache/template" id="election-positions-template">
+  \{{#positions}}
+  <option value="\{{id}}">\{{title}}</option>
+  \{{/positions}}
+</script>
+
+<script type="mustache/template" id="election-position-row-template">
+  \{{#electionPosition}}
+  <tr id="delete-election-pane-\{{id}}">
+    <td>\{{Position.title}}</td>
+    <td>\{{formPrice}}</td>
+    <td>
+      <form action="" method="post" id="delete-election-position-form-\{{id}}">
+        <input type="hidden" name="id" value="\{{id}}">
+        <button class="btn btn-sm btn-danger delete-election-position-btn" data-target-form="#delete-election-position-form-\{{id}}" data-target-pane="#delete-election-pane-\{{id}}">
+          delete
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </form>
+    </td>
+  </tr>
+  \{{/electionPosition}}
+</script>

@@ -1,0 +1,111 @@
+<span id="admin-payment-page"></span>
+{{>_adminNav}}
+<div class="container-fluid mb-5">
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-9 ml-auto">
+
+      <div class="row my-4 py-2">
+        <div class="col-12">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active text-warning font-weight-bold text-uppercase" data-toggle="tab" href="#home">
+                payments
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-12 py-2">
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active container" id="home">
+              <form action="" method="get">
+                <div class="form-group input-group">
+                  <input type="search" name="searchquery" class="form-control" />
+                  <span class="input-group-append">
+                    <button class="input-group-text text-uppercase font-weight-bold bg-warning">
+                      <span>search</span>
+                      <i class="fas fa-search ml-1"></i>
+                    </button>
+                  </span>
+                </div>
+              </form>
+
+              <div class="card shadowed">
+                <div class="card-body">
+                  <div class="scrollable" style="max-height: 450px; min-height: 100px">
+                    <table class="table table-striped">
+                      <thead class="text-uppercase">
+                        <tr>
+                          <th>sn</th>
+                          <th>
+                            FULL NAME
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Reference
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Amount Paid
+                            <i class="fas fa-money-check text-success ml-1"></i>
+                          </th>
+                          <th>
+                            Election
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            status
+                            <i class="fas fa-tag text-success ml-1"></i>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="payment-row-pane">
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script type="mustache/template" id="payment-row-template">
+\{{#payments}}
+<tr class="text-capitalize">
+  <td>\{{sn}}</td>
+  <td>
+    \{{#Student}}
+    \{{surname}} \{{othernames}}
+    \{{/Student}}
+  </td>
+  <td>
+    \{{reference}}
+  </td>
+  <td class="text-center">
+    &#8358;
+    \{{amount}}
+  </td>
+  <td class="text-capitalize">
+    \{{Election.title}}
+  </td>
+  <td class="text-uppercase font-weight-bold">
+    \{{status}}
+  </td>
+</tr>
+\{{/payments}}
+</script>

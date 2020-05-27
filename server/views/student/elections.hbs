@@ -1,0 +1,91 @@
+<span id="student-election-page"></span>
+
+{{>_mainNav}}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-light">
+    <li class="breadcrumb-item">
+      <a href="#">
+        <i class="fas fa-home mr-1"></i>
+        Home
+      </a>
+    </li>
+    <li class="breadcrumb-item active">
+      <div class="fas fa-handshake mr-1"></div>
+      Elections
+    </li>
+  </ol>
+</nav>
+<div class="container-fluid wrapper">
+  <div class="row p-3" id="election-row-pane">
+    <div class="col-12 col-sm-6 mx-auto">
+      <div class="ph-item py-5">
+        <div class="ph-col-12">
+          <div class="ph-row">
+            <div class="ph-col-12 big"></div>
+            <div class="ph-col-12 empty"></div>
+            <div class="ph-col-4 big py-1"></div>
+            <div class="ph-col-4 empty"></div>
+            <div class="ph-col-4 big"></div>
+
+            <div class="ph-col-12 empty"></div>
+
+            <div class="ph-col-4 big py-1"></div>
+            <div class="ph-col-4 empty"></div>
+            <div class="ph-col-4 big"></div>
+
+            <div class="ph-col-12 empty"></div>
+
+            <div class="ph-col-2 empty py-4"></div>
+            <div class="ph-col-8 big"></div>
+            <div class="ph-col-2 empty"></div>
+
+            <div class="ph-col-4 empty"></div>
+            <div class="ph-col-4 big"></div>
+            <div class="ph-col-4 empty"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{>_mainFooter}}
+
+<!-- Templates -->
+<script type="mustache/template" id="election-row-template">
+\{{#elections}}
+<div class="col-12 col-md-6 mx-auto text-center mb-2">
+  <div class="card shadowed">
+    <div class="card-body">
+      <h1 class="mb-3 text-success display-4 text-uppercase">\{{title}}</h1>
+      <div class="row text-uppercase">
+        <div class="col-6">
+          <h5 class="text-danger">Start Date</h5>
+          \{{startDateTimeFormatted}}
+        </div>
+        <div class="col-6">
+          <h5 class="text-warning">End Date</h5>
+          \{{endDateTimeFormatted}}
+        </div>
+      </div>
+      <div class="timer display-3 p-4 font-weight-bold text-secondary" data-time="\{{time}}" data-id="\{{id}}">
+        00 : 00 : 00
+      </div>
+      <form action="/student/vote/" method="post">
+        <input type="hidden" name="electionTitle" value="\{{title}}">
+        <input type="hidden" name="electionId" value="\{{id}}" />
+        <button class="btn btn-outline-success" id="btn-\{{id}}" disabled="true">
+          cast vote
+          <i class="fa fa-fingerprint"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+\{{/elections}}
+\{{^elections}}
+<div class="col-12 text-center my-5 text-muted">
+  <i class="fas fa-info-circle fa-4x mb-3"></i>
+  <p>There is no available election</p>
+</div>
+\{{/elections}}
+</script>

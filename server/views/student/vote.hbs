@@ -1,0 +1,137 @@
+<span id="student-vote-page" data-election-id="{{electionId}}" data-student-id="{{user.id}}"></span>
+
+{{>_mainNav}}
+<div class="container-fluid wrapper">
+  <div class="row">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mainSidebar fixed-top">
+      <h5 class="nav-link p-1 my-3 text-uppercase">
+        <i class="fas fa-chair ml-1 text-warning"></i>
+        Election Positions
+        <hr class="socket bg-light">
+      </h5>
+      <ul class="navbar-nav" id="election-position-pane"></ul>
+    </div>
+    <div class="col-12 col-sm-6 col-md-8 col-lg-9 ml-auto">
+      <div class="text-center py-2">
+        <i class="fas fa-fingerprint fa-3x text-success"></i>
+        <h5 class="text-uppercase my-2">Voting Platform <span class="text-success">({{electionTitle}})</span></h5>
+      </div>
+
+      <div class="row" id="candidate-pane">
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{{>_mainFooter}}
+
+<script type="mustache/template" id="election-position-template">
+\{{#electionPositions}}
+<li class="nav-item text-uppercase">
+  <a href="#candidate-holder-\{{id}}" class="nav-link py-3">
+    <i class="fas fa-fingerprint text-success"></i>
+    \{{Position.title}}
+    <div class="fas fa-angle-right text-warning"></div>
+  </a>
+</li>
+\{{/electionPositions}}
+</script>
+
+<script type="mustache/template" id="candidate-template">
+\{{#electionCandidates}}
+<div class="col-12 mb-3" id="candidate-holder-\{{id}}">
+  <div class="card shadowed">
+    <div class="card-body">
+      <h3 class="text-center text-uppercase">
+        \{{Position.title}}
+      </h3>
+      <hr class="socket" />
+
+      <div class="row" style="overflow-y: scroll; max-height: 450px;" id="canditate-pane-\{{id}}">
+        \{{#Candidates}}
+        <div class="col-9 col-sm-12 col-md-8 col-lg-4 mb-3 mx-auto">
+          <div class="card bg-light shadowed">
+            <div class="card-header">
+              <div class="d-flex justify-content-around align-items-center">
+                <span class="text-uppercase font-weight-bold badge badge-light">
+                  Total Votes
+                </span>
+                <span class="badge badge-warning" id="vote-counter-\{{id}}" style="font-size: 150%">
+                    0
+                </span>
+              </div>
+            </div>
+            <div class="card-body p-0 m-0 text-center text-light" style="background: #000;">
+              \{{#Student}}
+              <img src="\{{avatar}}" alt="avatar" class="img-circle img-fluid"
+                style="height: 200px; width: 100%">
+              <h6 class="text-center m-0 p-1">
+                
+                <span class="d-block text-capitalize">
+                  \{{surname}} \{{othernames}}
+                </span>
+                \{{/Student}}
+                 (\{{campaignName}})
+              </h6>
+            </div>
+            <div class="card-footer text-center">
+              <div class="d-sm-flex justify-content-sm-between">
+                <form action="" method="post" class="voting-form">
+                  <input type="hidden" name="candidateId" value="\{{id}}" />
+                  <input type="hidden" name="electionId" value="\{{electionId}}" />
+                  <input type="hidden" name="electionPositionId" value="\{{electionPositionId}}" />
+                  <button class="btn btn-sm btn-outline-success mr-2 mb-1 mb-sm-0 text-uppercase font-weight-bold">
+                    vote
+                    <i class="fas fa-fingerprint ml-1"></i>
+                  </button>
+                </form>
+                <button class="btn btn-sm btn-warning text-uppercase" data-toggle="modal"  data-target="#manifesto-pane-\{{id}}">
+                  <i class="fas fa-comment ml-1"></i>
+                </button>
+
+                <div class="modal fade" id="manifesto-pane-\{{id}}" data-backdrop="static" style="top: 20%;">
+                  <div class="modal-dialog">
+                    <div class="modal-content shadowed">
+                      <div class="modal-header p-2">
+                        <a href="#" class="close" data-dismiss="modal">
+                          &times;
+                        </a>
+                      </div>
+                      <div class="modal-body py-3 px-5">
+                        <h3 class="text-uppercase text-center">
+                          \{{Student.surname}} \{{Student.othernames}}
+                        </h3>
+                        <h5 class="text-uppercase text-center">
+                          Manifesto
+                        </h5>
+                        <div class="card">
+                          <div class="card-body">
+                            \{{manifesto}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        \{{/Candidates}}
+      </div>
+    </div>
+  </div>
+</div>
+\{{/electionCandidates}}
+
+\{{^electionCandidates}}
+<div class="col-12 text-center text-muted">
+  <div class="mt-5">
+    <i class="fas fa-info-circle fa-3x mb-3"></i>
+    <p>There is no available contestant.</p>
+  </div>
+</div>
+\{{/electionCandidates}}
+</script>

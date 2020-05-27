@@ -1,0 +1,166 @@
+<span id="admin-departments-page"></span>
+{{>_adminNav}}
+<div class="container-fluid mb-5">
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-9 ml-auto">
+
+      <div class="row my-4 py-2">
+        <div class="col-12">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active text-warning font-weight-bold text-uppercase" data-toggle="tab" href="#home">
+                departments
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning font-weight-bold text-uppercase" data-toggle="tab" href="#new-department">
+                <i class="fas fa-plus mr-2"></i>
+                new department
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-12 py-2">
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active container" id="home">
+              <form action="" method="get">
+                <div class="form-group input-group">
+                  <input type="search" name="searchquery" class="form-control" autocomplete="off" />
+                  <span class="input-group-append">
+                    <button class="input-group-text text-uppercase font-weight-bold bg-warning">
+                      <span>search</span>
+                      <i class="fas fa-search ml-1"></i>
+                    </button>
+                  </span>
+                </div>
+              </form>
+
+              <div class="card shadowed">
+                <div class="card-body">
+                  <div class="scrollable" style="max-height: 450px; min-height: 100px">
+                    <table class="table table-striped">
+                      <thead class="text-uppercase">
+                        <tr>
+                          <th>sn</th>
+                          <th>
+                            name
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            created at
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            modified at
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            action
+                            <i class="fas fa-cog text-success ml-1"></i>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="department-row-pane"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane container" id="new-department">
+              <div class="card">
+                <div class="card-header bg-dark text-warning">
+                  <h5 class="card-title">
+                    New Department
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <form action="" method="POST" id="new-department-form">
+                    <div class="form-group">
+                      <label for="name">Department Name</label>
+                      <input type="text" name="name" id="name" class="form-control" autocomplete="off" />
+                      <span class="d-block error" id="nameError"></span>
+                    </div>
+
+                    <div class="form-group text-center">
+                      <button type="submit" class="btn btn-warning text-uppercase font-weight-bold">
+                        save
+                        <i class="fas fa-save ml-2"></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script type="mustache/template" id="department-row-template">
+\{{#departments}}
+<tr>
+  <td>\{{sn}}</td>
+  <td>\{{name}}</td>
+  <td>\{{createdAt}}</td>
+  <td>\{{updatedAt}}</td>
+  <td>
+    <div>
+      <div class="d-flex justify-content-around">
+        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#edit-department-\{{id}}">
+          edit
+          <i class="fas fa-edit ml-1"></i>
+        </button>
+        <form action="" method="post" id="delete-department-form-\{{id}}">
+          <input type="hidden" name="id" value="\{{id}}" />
+          <button class="btn btn-danger btn-sm delete-department-btn" data-form-target="#delete-department-form-\{{id}}">
+            delete
+            <i class="fas fa-trash-alt ml-1"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="modal fade" id="edit-department-\{{id}}" style="top: 20%;" data-backdrop="static">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-dark text-light">
+              <h5 class="modal-title">
+                Edit Department
+              </h5>
+              <a href="#" class="close text-light" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+              <form action="" method="post" class="update-department-form">
+                <input type="hidden" name="id" value="\{{id}}">
+                <div class="form-group">
+                  <input type="text" name="name" value="\{{name}}" class="form-control" autocomplete="off"/>
+                </div>
+
+                <div class="form-group text-center">
+                  <button type="submit" class="btn btn-warning">
+                    update
+                    <i class="fas fa-save ml-1"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </td>
+</tr>
+\{{/departments}}
+</script

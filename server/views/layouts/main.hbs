@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Electronic voting system for imo state polytechnic.">
+  <title>{{pageTitle}}</title>
+
+  <link rel="stylesheet" href="/vendors/bootstrap-4.4.1-dist/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/vendors/css/jquery.datetimepicker.css">
+  <link rel="stylesheet" href="/vendors/css/placeholder-loading.css">
+  <link rel="stylesheet" href="/src/css/main.css">
+  <link rel="icon" type="icon/image" href="/images/icon.png">
+</head>
+
+<body class="bg-light" style="position: relative;">
+  {{>_pageMsg}}
+  {{{body}}}
+  <!-- Templates-->
+  <script type="mustache/template" id="loading-template">
+    <div class="loading">
+      <div class="loading-inner">
+        <i class="fas fa-spinner fa-pulse fa-5x"></i>
+        <p class="mt-2 text-warning">
+          please wait
+        </p>
+      </div>
+    </div>
+  </script>
+  <!-- End of Templates -->
+
+  <script src="/vendors/js/jquery-3.4.1.js"></script>
+  <script src="/vendors/js/popper.min.js"></script>
+  <script src="/vendors/bootstrap-4.4.1-dist/js/bootstrap.js"></script>
+  <script src="/vendors/js/all.js"></script>
+  <script src="/vendors/js/mustache.min.js"></script>
+  <script src="/vendors/js/jquery.form.js"></script>
+  <script src="/vendors/js/jquery.datetimepicker.full.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/src/js/main.js"></script>
+</body>
+
+</html>

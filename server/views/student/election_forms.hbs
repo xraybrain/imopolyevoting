@@ -1,0 +1,72 @@
+<span id="election-form-purchase-page"></span>
+{{>_mainNav}}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-light">
+    <li class="breadcrumb-item">
+      <a href="#">
+        <i class="fas fa-home mr-1"></i>
+        Home
+      </a>
+    </li>
+    <li class="breadcrumb-item active">
+      <div class="fas fa-stream mr-1"></div>
+      election form
+    </li>
+  </ol>
+</nav>
+<div class="container-fluid wrapper">
+
+  <div class="col-11 col-md-8 mx-auto text-center py-3">
+    <h3 class="text-uppercase text-center mb-3">Purchase Election Form</h3>
+    <p class="text-muted text-lowercase">
+      If you wish to contest in any election you can purchase the form here.
+    </p>
+  </div>
+
+  <div class="col-12 col-md-10 mx-auto">
+    <div class="card">
+      <div class="card-body" id="election-row-pane">
+
+      </div>
+    </div>
+  </div>
+</div>
+{{>_mainFooter}}
+
+<script type="mustache/template" id="election-row-template">
+
+\{{#elections}}
+<div class="card">
+  <div class="card-body">
+    <h5 class="text-uppercase font-weight-bold text-center">\{{title}}</h5>
+    <hr class="socket">
+
+    <table class="table table-striped">
+      <thead class="text-success text-uppercase">
+        <th>Position</th>
+        <th>Amount (NGN)</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        \{{#ElectionPositions}}
+        <tr>
+          <td class="text-uppercase">\{{Position.title}}</td>
+          <td>&#8358; \{{formPrice}}</td>
+          <td>
+            <form action="/student/makepayment/" method="post">
+              <input type="hidden" name="electionPositionId" value="\{{id}}" />
+              <input type="hidden" name="electionId" value="\{{electionId}}" />
+              <button class="btn btn-sm btn-outline-success">buy form</button>
+            </form>
+          </td>
+        </tr>
+        \{{/ElectionPositions}}
+      </tbody>
+    </table>
+  </div>
+</div>
+\{{/elections}}
+\{{^elections}}
+  <p class="text-center w-100">Sorry, there is no active election.</p>
+\{{/elections}}
+</script>

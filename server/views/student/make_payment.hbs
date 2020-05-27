@@ -1,0 +1,75 @@
+<span id="student-makepayment-page" data-election-position="{{electionPosition}}"></span>
+{{>_mainNav}}
+<div class="container-fluid wrapper py-2">
+  <div class="col-12 col-md-8 mx-auto">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="d-flex justify-content-between align-items-center">
+          <i class="fas fa-shield-alt fa-3x text-danger"></i>
+          <h5 class="card-title text-uppercase">
+            Secured Payment
+          </h5>
+        </div>
+      </div>
+
+      <div class="card-body" id="payment-pane">
+
+      </div>
+    </div>
+  </div>
+</div>
+{{>_mainFooter}}
+
+<script src="https://js.paystack.co/v1/inline.js" type="application/javascript"></script>
+
+<script type="mustache/template" id="payment-template">
+  \{{#electionPositions}}
+  <div class="text-center text-capitalize">
+    <h5 class="display-4">
+      \{{Election.title}}
+    </h5>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Amount Charged (NGN)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-uppercase">\{{Position.title}}</td>
+            <td>
+              &#8358;
+              \{{formPrice}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h5 class="text-center text-uppercase">Payment By:</h5>
+      <div class="text-uppercase">
+        <h3>Name: \{{user.surname}} \{{user.othernames}}</h3>
+        <h5 class="">Department: \{{user.Department.name}}</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-3 text-center">
+    <form id="payment-form">
+      \{{#user}}
+      <input type="hidden" name="studentId" value="\{{id}}" />
+      \{{/user}}
+      \{{#electionPositions}}
+      <input type="hidden" name="electionPositionId" value="\{{id}}" />
+      <input type="hidden" name="electionId" value="\{{Election.id}}" />
+      <input type="hidden" name="amount" value="\{{formPrice}}" />
+      \{{/electionPositions}}
+      <button type="button" class="btn btn-outline-warning text-uppercase font-weight-bold" id="make-payment-btn">
+        continue
+      </button>
+    </form>
+  </div>
+  \{{/electionPositions}}
+</script>

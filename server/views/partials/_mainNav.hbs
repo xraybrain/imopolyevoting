@@ -1,0 +1,103 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a href="/" class="navbar-brand font-weight-bold">
+    <img src="/images/logo.png" alt="logo" width="50" height="30"/>
+    E-VOTING
+  </a>
+
+  <button class="navbar-toggler" data-toggle="collapse" data-target="#main-nav">
+    <span class="line1"></span>
+    <span class="line2"></span>
+    <span class="line3"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-nav">
+    <ul class="navbar-nav ml-auto text-uppercase font-weight-bold">
+      <li class="nav-item">
+        <a href="/" class="nav-link text-success">
+          <i class="fas fa-home text-warning mr-1"></i>
+          home
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/#contact-us" class="nav-link text-success">
+          <i class="fas fa-comment text-warning mr-1"></i>
+          contact us
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/electionresult/" class="nav-link text-success">
+          <i class="fas fa-list-alt text-warning mr-1"></i>
+          election result
+        </a>
+      </li>
+      {{#if user}}
+      {{#if (isEqual user.role 'Student')}}
+      <li class="nav-item">
+        <a href="/student/elections/" class="nav-link text-success">
+          <i class="fas fa-handshake text-warning mr-1"></i>
+          Elections
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/student/electionforms/" class="nav-link text-success">
+          <i class="fas fa-money-check text-warning mr-1"></i>
+          buy form
+        </a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a href="/student/profile/" class="nav-link btn btn-warning text-dark" data-toggle="dropdown">
+          <i class="fas fa-user mr-1"></i>
+          my account
+          <i class="fas fa-angle-down mr-1"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right bg-dark menu-widget">
+          <a href="/student/profile/" class="dropdown-item">
+            <div class="text-center">
+              <img src="{{user.avatar}}" alt="avatar" style="width: 50px; heigth: 40px; border-radius: 40%;" class="img-fluid">
+              <span class="d-block text-capitalize">({{user.surname}} {{user.othernames}})</span>
+            </div>
+          </a>
+          <a href="/student/campaigns/" class="dropdown-item font-weight-bold">
+            My Campaigns
+          </a>
+          <a href="/logout/" class="dropdown-item font-weight-bold">
+            Logout
+            <i class="fas fa-sign-out-alt text-danger"></i>
+          </a>
+        </div>
+      </li>
+      {{/if}}
+      {{else}}
+
+
+      <li class="nav-item">
+        <a href="/register/" class="nav-link text-success">
+          <i class="fas fa-user-plus text-warning mr-1"></i>
+          register
+        </a>
+      </li>
+      <li class="nav-item">
+        <div class="dropdown">
+          <a href="/login/" class="nav-link text-success" data-toggle="dropdown">
+            <i class="fas text-warning fa-sign-in-alt"></i>
+            login
+            <i class="fas fa-angle-down ml-1 text-warning"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right bg-dark menu-widget">
+            <a href="/login/" class="dropdown-item font-weight-bold">
+              <i class="fas fa-user text-danger mr-2"></i>
+              student
+            </a>
+            <a href="/admin/login/" class="dropdown-item font-weight-bold">
+              <i class="fas fa-user-shield text-danger mr-2"></i>
+              admin
+            </a>
+          </div>
+        </div>
+      </li>
+      {{/if}}
+    </ul>
+  </div>
+</nav>

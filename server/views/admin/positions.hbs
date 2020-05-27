@@ -1,0 +1,163 @@
+<span id="admin-positions-page"></span>
+{{>_adminNav}}
+<div class="container-fluid mb-5">
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-9 ml-auto">
+
+      <div class="row my-4 py-2">
+        <div class="col-12">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active text-warning font-weight-bold text-uppercase" data-toggle="tab" href="#home">
+                positions/offices
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning font-weight-bold text-uppercase" data-toggle="tab" href="#new-position">
+                <i class="fas fa-plus mr-2"></i>
+                new position
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-12 py-2">
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active container" id="home">
+              <form action="" method="get">
+                <div class="form-group input-group">
+                  <input type="search" name="searchquery" class="form-control" />
+                  <span class="input-group-append">
+                    <button class="input-group-text text-uppercase font-weight-bold bg-warning">
+                      <span>search</span>
+                      <i class="fas fa-search ml-1"></i>
+                    </button>
+                  </span>
+                </div>
+              </form>
+
+              <div class="card shadowed">
+                <div class="card-body">
+                  <div class="scrollable p-1" style="max-height: 450px; min-height: 100px">
+                    <table class="table table-striped">
+                      <thead class="text-uppercase">
+                        <tr>
+                          <th>sn</th>
+                          <th>
+                            title
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            created at
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            modified at
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            action
+                            <i class="fas fa-cog text-success ml-1"></i>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="position-row-pane"></tbody>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane container" id="new-position">
+              <div class="card" id="new-position-pane" style="position: relative;">
+                <div class="card-header bg-dark text-warning">
+                  <h5 class="card-title">
+                    New Position
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <form action="/api/positions/" method="POST" id="new-position-form">
+                    <div class="form-group">
+                      <label for="title">Position Title</label>
+                      <input type="text" name="title" id="title" class="form-control" autocomplete="off" />
+                      <span class="error" id="titleError"></span>
+                    </div>
+                    <div class="form-group text-center">
+                      <button type="submit" class="btn btn-warning text-uppercase font-weight-bold">
+                        save
+                        <i class="fas fa-save ml-2"></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script type="mustache/template" id="position-row-template">
+\{{#positions}}
+  <tr>
+    <td>\{{sn}}.</td>
+    <td>\{{title}}</td>
+    <td>\{{createdAt}}</td>
+    <td>\{{updatedAt}}</td>
+    <td>
+      <div>
+        <div class="d-flex justify-content-around">
+          <button type="button" aria-role="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit-position-\{{id}}">
+            edit
+            <div class="fas fa-edit"></div>
+          </button>
+          <form action="" method="post" id="delete-position-form-\{{id}}">
+            <input type="hidden" name="id" value="\{{id}}" />
+            <button type="submit" aria-role="button" class="btn btn-sm btn-danger delete-position-btn" data-target-form="#delete-position-form-\{{id}}">
+              delete
+              <div class="fas fa-trash-alt"></div>
+            </button>
+          </form>
+        </div>
+
+        <div class="modal fade" id="edit-position-\{{id}}" style="top: 20%;">
+          <div class="modal-dialog" id="edit-position-pane">
+            <div class="modal-content">
+              <div class="modal-header bg-dark text-light">
+                <h5>Edit Position</h5>
+                <a href="#" class="close text-light" data-dismiss="modal">&times;</a>
+              </div>
+              <div class="modal-body">
+                <form action="" method="post" class="update-position-form">
+                <div class="form-group">
+                  <label for="">Position Title</label>
+                  <input type="text" name="title" value="\{{title}}" class="form-control" />
+                </div>
+                <div class="form-group text-center">
+                  <input type="hidden" name="id" value="\{{id}}" />
+                  <button type="submit" class="btn btn-warning">
+                    update
+                  </button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+\{{/positions}}
+</script>

@@ -1,0 +1,111 @@
+<span id="registration-page"></span>
+{{>_mainNav}}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-light">
+    <li class="breadcrumb-item">
+      <a href="#">
+        <i class="fas fa-home mr-1"></i>
+        Home
+      </a>
+    </li>
+    <li class="breadcrumb-item active">
+      <div class="fas fa-user-plus mr-1"></div>
+      register
+    </li>
+  </ol>
+</nav>
+
+<div class="container-fluid wrapper py-3">
+  <div class="col-11 col-md-8 col-lg-6 mx-auto text-center">
+    <i class="fas fa-user-plus fa-3x text-danger"></i>
+    <h4 class="text-uppercase py-2">
+      Create Account
+    </h4>
+  </div>
+
+  <div class="col-12 col-md-9 col-lg-8 mx-auto">
+    <div class="card shadowed" id="register-pane" style="position: relative;">
+      <div class="card-body">
+        <form action="" method="post" id="register-form">
+          <div class="row">
+            <div class="col-12 col-md-6 form-group">
+              <label for="surname">Surname</label>
+              <input type="text" name="surname" class="form-control" placeholder="Surname" id="surname">
+            </div>
+            <div class="col-12 col-md-6 form-group">
+              <label for="othernames">Other Names</label>
+              <input type="text" name="othernames" class="form-control" placeholder="Other Names" id="othernames">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6 form-group">
+              <label for="level">Level</label>
+              <select name="level" class="form-control" id="level">
+                <option value="">Level</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-6 form-group">
+              <label for="department">Department</label>
+              <select name="department" class="form-control" id="department">
+                <option value="">Department</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-6 form-group">
+              <label for="matricno">Matric No</label>
+              <input type="text" name="matricno" class="form-control" placeholder="2020/ND/CST/00008" id="matricno" autocomplete="off">
+            </div>
+            <div class="col-12 col-md-6 form-group">
+              <label for="emailAddress">Email Address</label>
+              <input type="text" name="emailAddress" class="form-control" placeholder="eg@mail.com" id="emailAddress" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-6 form-group">
+              <label for="password">Password</label>
+              <div class="input-group">
+                <input type="password" name="password" class="form-control" placeholder="Password" id="password"
+                  data-id="password">
+                <span class="input-group-append">
+                  <button class="input-group-text" type="button" data-toggle="password">
+                    <i class="fas fa-eye"></i>
+                    <i class="fas fa-eye-slash hidden"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password"
+                id="confirmPassword" data-id="password">
+            </div>
+          </div>
+
+          <div class="text-center py-2">
+            <button type="submit" class="btn btn-outline-success">
+              register
+              <div class="fas fa-user-plus ml-2 text-danger"></div>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{>_mainFooter}}
+
+<script type="mustache/template" id="level-option-template">
+\{{#levels}}
+<option value="\{{id}}">\{{name}}</option>
+\{{/levels}}
+</script>
+
+<script type="mustache/template" id="department-option-template">
+\{{#departments}}
+<option value="\{{id}}">\{{name}}</option>
+\{{/departments}}
+</script>

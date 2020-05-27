@@ -1,0 +1,135 @@
+<style>
+  .ux-d-flex {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  table {
+    border-color: #494949;
+  }
+
+  table th,
+  td {
+    padding: 5px;
+  }
+
+  table tbody tr:nth-child(odd) {
+    background-color: #494949;
+    color: #fff;
+  }
+
+  table tr {
+    background-color: #ecebeb;
+  }
+
+  @media screen (max-width: 595px) {
+    .ux-d-flex {
+      display: relative;
+    }
+
+    .ux-d-flex * {
+      display: block;
+    }
+  }
+
+ 
+</style>
+<span id="election-form-receipt-page" data-paymentid="{{paymentId}}"></span>
+{{>_mainNav}}
+<div class="d-flex justify-content-between">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-light">
+      <li class="breadcrumb-item">
+        <a href="/">
+          <i class="fas fa-home mr-1"></i>
+          Home
+        </a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="/student/electionforms/">
+          <i class="fas fa-list mr-1"></i>
+          Elections Forms
+        </a>
+      </li>
+      <li class="breadcrumb-item active">
+        <i class="fas fa-receipt mr-1"></i>
+        Receipt
+      </li>
+    </ol>
+  </nav>
+
+  <div>
+    <button class="btn btn-warning mr-4 mt-1" id="print-btn">
+      <i class="fas fa-print"></i>
+    </button>
+  </div>
+</div>
+<div class="container wrapper">
+  <div class="card" style="min-height: 600px;">
+    <div class="card-body" id="printable" style="position: relative;">
+      <div style="text-align: center">
+        <h1 style="text-transform: uppercase">Imo State Polytechnic Ohaji/Egbema</h1>
+        <h4 style="color: gray;">Election Contestant Receipt</h4>
+      </div>
+      <img src="/images/logo.png" alt="school logo"
+        style="position: absolute; left: 50%; transform: translateX(-50%); z-index: 1; opacity: 0.2; width: 50%; height: 50%;top: 20%;" />
+      <div id="receipt-pane" style="margin-top: 100px;">
+
+      </div>
+    </div>
+  </div>
+</div>
+{{>_mainFooter}}
+
+<script type="mustache/template" id="receipt-template">
+\{{#payments}}
+<div style="margin-top: 30px;display: flex;justify-content: space-between;">
+<table border="1" style="border-collapse: collapse;">
+  <tbody>
+    \{{#Student}}
+    <tr>
+      <th style="width: 150px; padding: 5px; text-align: left;">NAME</th>
+      <td style="text-transform: capitalize; text-align: left;">\{{surname}} \{{othernames}}</td>
+    </tr>
+    <tr>
+      <th style="width: 150px; padding: 5px; text-transform: capitalize;text-align: left;">Department</th>
+      <td style="text-transform: capitalize;">\{{Department.name}}</td>
+    </tr>
+    \{{/Student}}
+    \{{#Election}}
+    <tr>
+      <th style="width: 100px; padding: 5px; text-align: left;">Election</th>
+      <td style="text-transform: uppercase">\{{title}}</td>
+    </tr>
+    \{{/Election}}
+    
+  </tbody>
+</table>
+
+<img src="\{{Student.avatar}}" alt="avatar" width="100" height="100" style="margin-right: 40px">
+</div>
+
+<div style="margin-top: 30px">
+<h5 class="text-center">#INVOICE Details</h5>
+
+<table border="1" style="border-collapse: collapse;width: 100%;">
+  <thead>
+    <tr>
+      <th>Reference</th>
+      <th>Amount Paid (NGN)</th>
+      <th>Aspiring Position</th>
+      <th>Payment Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>\{{reference}}</td>
+      <td>&#8358; \{{amount}}</td>
+      <td>\{{ElectionPosition.Position.title}}</td>
+      <td>\{{paymentDate}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+\{{/payments}}
+</script>

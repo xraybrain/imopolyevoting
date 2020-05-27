@@ -1,0 +1,216 @@
+<span id="student-profile-page"></span>
+{{>_mainNav}}
+
+<div class="container-fluid wrapper">
+  <div class="row mt-2">
+    <div class="col-12 col-md-8 mx-auto">
+      <div class="card shadowed">
+        <div class="card-body">
+          <div class="text-center" style="position: relative;">
+            <div class="dropdown">
+              <button class="btn btn-sm btn-dark" style="position: absolute; top: 0%; right: 0%" data-toggle="dropdown">
+                <i class="fas fa-cog"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right menu-widget">
+                <a href="#" data-toggle="modal" data-target="#reset-password"
+                  class="dropdown-item text-uppercase font-weight-bold">
+                  <i class="fas fa-undo text-warning"></i>
+                  change password
+                </a>
+                <a href="#" data-toggle="modal" data-target="#change-avatar"
+                  class="dropdown-item text-uppercase font-weight-bold">
+                  <i class="fas fa-user text-warning"></i>
+                  change avatar
+                </a>
+                <a href="#" data-toggle="modal" data-target="#edit-profile"
+                  class="dropdown-item text-uppercase font-weight-bold">
+                  <i class="fas fa-edit text-warning"></i>
+                  edit profile
+                </a>
+              </div>
+            </div>
+            <p class="bg-warning text-light mx-auto" style="width: 50px;padding: 5px; border-radius: 50%;">
+              <i class="fas fa-user fa-2x"></i>
+            </p>
+            <h4 class="text-uppercase font-weight-bold">My Profile</h4>
+
+            <hr class="socket" />
+          </div>
+
+          <div class="col-8 mx-auto" id="profile-pane">
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{>_mainFooter}}
+
+<script type="mustache/template" id="profile-template">
+\{{#user}}
+<div class="text-center mb-2">
+  <img src="\{{avatar}}" alt="avatar" class="img-fluid" style="height: 200px;" />
+</div>
+<div class="scrollable">
+  <table class="table table-striped table-hover">
+  <tr>
+    <th class="text-uppercase">Surname</th>
+    <td class="text-capitalize">\{{surname}}</td>
+  </tr>
+  <tr>
+    <th class="text-uppercase">Othernames</th>
+    <td class="text-capitalize">\{{othernames}}</td>
+  </tr>
+  <tr>
+    <th class="text-uppercase">Matric No</th>
+    <td class="text-uppercase">\{{matricNo}}</td>
+  </tr>
+  <tr>
+    <th class="text-uppercase">Department</th>
+    <td class="text-capitalize">\{{Department.name}}</td>
+  </tr>
+  <tr>
+    <th class="text-uppercase">Level</th>
+    <td class="text-capitalize">\{{Level.name}}</td>
+  </tr>
+</table>
+</div>
+
+<div class="modal fade" id="edit-profile" data-backdrop="static" style="margin-top: 5%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header p-0">
+        <a href="#" class="close" data-dismiss="modal">&times;</a>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" id="update-student-form">
+          <div class="mb-4">
+            <h5 class="text-center">
+              <p class="p-0 m-0">
+                <i class="fas fa-edit fa-2x text-warning mr-1"></i>
+              </p>
+              Editing Profile
+            </h5>
+            <hr class="socket" />
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="surname" value="\{{surname}}" class="form-control text-capitalize" />
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="othernames" value="\{{othernames}}" class="form-control text-capitalize"/>
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="matricNo" value="\{{matricNo}}" class="form-control text-uppercase" />
+          </div>
+
+          <div class="form-group">
+            <input type="text" value="\{{Department.name}}" class="form-control text-capitalize" readonly="true" placeholder="department"/>
+          </div>
+
+          <div class="form-group">
+            <input type="text" value="\{{Level.name}}" class="form-control text-uppercase" readonly="true" placeholder="level"/>
+          </div>
+
+
+          <div class="form-group text-center">
+            <input type="hidden" name="id" value="\{{id}}">
+            <button type="submit" class="btn btn-outline-success">
+              update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+\{{/user}}
+</script>
+
+<div class="modal fade" id="reset-password" data-backdrop="static" style="margin-top: 15%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header p-0">
+        <a href="#" class="close" data-dismiss="modal">&times;</a>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" id="reset-password-form">
+          <input type="hidden" name="id" value="{{user.id}}">
+          <div class="mb-4 text-center">
+            <p class="p-0 m-0">
+              <i class="fas fa-undo fa-2x text-warning"></i>
+            </p>
+            <h5 class="text-center">Change Password</h5>
+            <hr class="socket" />
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <input type="password" name="password" class="form-control" placeholder="New Password" id="password"
+                data-id="password">
+              <span class="input-group-append">
+                <button class="input-group-text" type="button" data-toggle="password">
+                  <i class="fas fa-eye"></i>
+                  <i class="fas fa-eye-slash hidden"></i>
+                </button>
+              </span>
+            </div>
+            <span class="error d-block" id="passwordError"></span>
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword"
+              data-id="password">
+            <span class="error d-block" id="confirmPasswordError"></span>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-outline-success">
+              confirm
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="change-avatar" data-backdrop="static" style="margin-top: 10%;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header p-0">
+        <a href="#" class="close" data-dismiss="modal">&times;</a>
+      </div>
+      <div class="modal-body">
+        <div class="form-group text-center" style="position: relative;">
+          <div>
+            <h5 class="text-center">
+              <p class="p-0 m-0">
+                <i class="fas fa-image fa-2x text-warning"></i>
+              </p>
+              Change Profile Picture
+            </h5>
+            <hr class="socket">
+          </div>
+          <img src="{{user.avatar}}" alt="avatar" id="new-avatar" style="opacity: 0.4; width: 200px; height: 250px;" />
+          <form action="" method="post" class="text-center"
+            style="position: absolute; top: 50%; left: 50%; margin: 0px auto; transform: translate(-50%, -50%)"
+            id="file-upload-form">
+            <div id="uploadAvatarError"></div>
+
+            <label for="file-uploader" style="cursor: pointer;">
+              <i class="fas fa-camera fa-3x text-danger"></i>
+            </label>
+            <input type="hidden" name="id" value="{{user.id}}">
+            <input type="file" name="fileToUpload" id="file-uploader" class="hidden" />
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

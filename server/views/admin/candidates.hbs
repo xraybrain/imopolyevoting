@@ -1,0 +1,126 @@
+<span id="admin-candidate-page"></span>
+{{>_adminNav}}
+<div class="container-fluid mb-5">
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-9 ml-auto">
+
+      <div class="row my-4 py-2">
+        <div class="col-12">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active text-warning font-weight-bold text-uppercase" data-toggle="tab" href="#home">
+                candidates
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-12 py-2">
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active container" id="home">
+              <form action="" method="get">
+                <div class="form-group input-group">
+                  <input type="search" name="query" class="form-control" />
+                  <span class="input-group-append">
+                    <button class="input-group-text text-uppercase font-weight-bold bg-warning">
+                      <span>search</span>
+                      <i class="fas fa-search ml-1"></i>
+                    </button>
+                  </span>
+                </div>
+              </form>
+
+              <div class="card shadowed">
+                <div class="card-body">
+                  <div class="scrollable p-1" style="max-height: 450px; min-height: 250px">
+                    <table class="table table-striped">
+                      <thead class="text-uppercase">
+                        <tr>
+                          <th>sn</th>
+                          <th>
+                            Full Name
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Election
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Position
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            status
+                            <i class="fas fa-info-circle text-success ml-1"></i>
+                          </th>
+                          <th>
+                            action
+                            <i class="fas fa-cog text-success ml-1"></i>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="candidate-row-pane"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script type="mustache/template" id="candidate-row-template">
+\{{#candidates}}
+<tr>
+  <td>\{{sn}}.</td>
+  <td class="text-capitalize">
+    \{{#Student}}
+    \{{surname}} \{{othernames}}
+    \{{/Student}}
+  </td>
+  <td class="text-capitalize">
+    \{{Election.title}}
+  </td>
+  <td class="text-capitalize">
+    \{{ElectionPosition.Position.title}}
+  </td>
+  <td>
+    \{{#canContest}}
+    eligible
+    \{{/canContest}}
+    \{{^canContest}}
+    ineligible
+    \{{/canContest}}
+  </td>
+  <td>
+    \{{#canContest}}
+    <form action="" class="candidate-screening-form" method="post">
+      <input type="hidden" name="id" value="\{{id}}">
+      <input type="hidden" name="canContest" value="0">
+      <button class="btn btn-sm btn-danger">screen out</button>
+    </form>
+    \{{/canContest}}
+    \{{^canContest}}
+    <form action="?_METHOD=PUT" class="candidate-screening-form" method="post">
+      <input type="hidden" name="id" value="\{{id}}">
+      <input type="hidden" name="canContest" value="1">
+      <button class="btn btn-sm btn-success">screen in</button>
+    </form>
+    \{{/canContest}}
+  </td>
+</tr>
+\{{/candidates}}
+</script>

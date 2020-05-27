@@ -1,0 +1,249 @@
+<span id="admin-dashboard"></span>
+{{>_adminNav}}
+<div class="container-fluid mb-5">
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-9 ml-auto">
+      <div class="row my-4 py-2">
+        <div class="col-10 col-sm-6 col-lg-3 mx-auto mb-2">
+          <div class="card bg-danger text-light">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div class="mr-2">
+                  <h4 class="d-block font-weight-bold" id="total-payment"></h4>
+                  Payments
+                </div>
+                <span style="font-size: 273%; font-weight:bold">&#8358;</span>
+              </div>
+            </div>
+            <div class="card-footer text-center p-0">
+              <a href="/admin/payments/" class="text-warning" style="text-decoration: none;">
+                more info
+                <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-10 col-sm-6 col-lg-3 mx-auto mb-2">
+          <div class="card bg-warning">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div class="mr-2">
+                  <h4 class="d-block" id="total-students"></h4>
+                  students
+                </div>
+                <i class="fas fa-users fa-4x"></i>
+              </div>
+            </div>
+            <div class="card-footer text-center p-0">
+              <a href="/admin/students/" class="text-info" style="text-decoration: none;">
+                more info
+                <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-10 col-sm-6 col-lg-3 mx-auto mb-2">
+          <div class="card bg-secondary text-warning">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div class="mr-2">
+                  <h4 class="d-block" id="total-elections"></h4>
+                  elections
+                </div>
+                <i class="fas fa-handshake fa-4x"></i>
+              </div>
+            </div>
+            <div class="card-footer text-center p-0">
+              <a href="/admin/elections/" class="text-light" style="text-decoration: none;">
+                more info
+                <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-10 col-sm-6 col-lg-3 mx-auto mb-2">
+          <div class="card bg-dark text-light">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div class="mr-2">
+                  <span class="d-block" id="total-positions"></span>
+                  Positions
+                </div>
+                <i class="fas fa-chair fa-4x"></i>
+              </div>
+            </div>
+            <div class="card-footer text-center p-0">
+              <a href="/admin/positions/" class="text-danger" style="text-decoration: none;">
+                more info
+                <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row table-section">
+        <div class="col-12 mb-3">
+          <div class="card shadowed" style="max-height: 250px; height: 250px">
+            <div class="card-header bg-warning d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0 text-uppercase font-weight-bold">New Students</h5>
+              <i class="fas fa-users fa-2x"></i>
+            </div>
+            <div class="card-body scrollable" style="max-height: 250px; height: 250px">
+              <table class="table table-striped">
+                <thead class="text-uppercase">
+                  <tr>
+                    <th>sn</th>
+                    <th>surname</th>
+                    <th>othernames</th>
+                    <th>matric no</th>
+                    <th>department</th>
+                    <th>action</th>
+                  </tr>
+                </thead>
+                <tbody id="student-row-pane"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3 mx-auto">
+          <div class="card shadowed" style="max-height: 250px; height: 250px">
+            <div class="card-header bg-dark text-light d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0 text-uppercase font-weight-bold">New Payments</h5>
+              <i class="fas fa-money-check fa-2x text-danger"></i>
+            </div>
+            <div class="card-body scrollable" style="max-height: 250px; height: 250px">
+              <table class="table table-striped">
+                <thead class="text-uppercase">
+                  <tr>
+                    <th>sn</th>
+                    <th>Full name</th>
+                    <th>Reference</th>
+                    <th>Amount Paid</th>
+                    <th>
+                      Date
+                      <i class="fas fa-calendar text-info"></i>
+                    </th>
+                    <th>
+                      action
+                      <i class="fas fa-list text-warning"></i>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="payment-row-pane"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3 mx-auto">
+          <div class="card shadowed" style="max-height: 250px; height: 250px">
+            <div class="card-header bg-success text-light d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0 text-uppercase font-weight-bold">New Candidates</h5>
+              <i class="fas fa-user-friends fa-2x text-danger"></i>
+            </div>
+            <div class="card-body scrollable" style="max-height: 250px; height: 250px">
+              <table class="table table-striped">
+                <thead class="text-uppercase">
+                  <tr>
+                    <th>sn</th>
+                    <th>Full Name</th>
+                    <th>Election</th>
+                    <th>Aspiring Position</th>
+                    <th>
+                      Date
+                      <i class="fas fa-calendar text-info"></i>
+                    </th>
+                    <th>
+                      action
+                      <i class="fas fa-list text-warning"></i>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="candidate-row-pane"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="mustache/template" id="student-row-template">
+\{{#students}}
+<tr>
+  <td>\{{sn}}</td>
+  <td class="text-capitalize">\{{surname}}</td>
+  <td class="text-capitalize">\{{othernames}}</td>
+  <td>\{{matricNo}}</td>
+  <td class="text-capitalize">\{{Department.name}}</td>
+  <td>
+    <div class="d-flex justify-content-between">
+      <form action="" method="post" class="activate-student-form mr-1">
+        <input type="hidden" name="id" value="\{{id}}"/>
+        <input type="hidden" name="activated" value="1" />
+        <button class="btn btn-success btn-sm">accept</button>
+      </form>
+      <form action="" method="post" class="delete-student-form">
+        <input type="hidden" name="id" value="\{{id}}"/>
+        <button class="btn btn-danger btn-sm">decline</button>
+      </form>
+    </div>
+  </td>
+</tr>
+\{{/students}}
+</script>
+<script type="mustache/template" id="candidate-row-template">
+\{{#candidates}}
+<tr>
+  <td>\{{sn}}.</td>
+  <td>
+    \{{#Student}}
+      \{{surname}} \{{othernames}}
+    \{{/Student}}
+  </td>
+  <td class="text-capitalize">\{{Election.title}}</td>
+  <td>\{{ElectionPosition.Position.title}}</td>
+  <td>\{{applicationDate}}</td>
+  <td>
+    <div class="d-flex justify-content-between">
+      <form action="" method="post" class="candidate-screening-form mr-1">
+        <input type="hidden" name="id" value="\{{id}}"/>
+        <input type="hidden" name="activated" value="1" />
+        <button class="btn btn-success btn-sm">confirm</button>
+      </form>
+    </div>
+  </td>
+</tr>
+\{{/candidates}}
+</script>
+
+<script type="mustache/template" id="payment-row-template">
+\{{#payments}}
+<tr>
+  <td>\{{sn}}.</td>
+  <td>
+    \{{#Student}}
+      \{{surname}} \{{othernames}}
+    \{{/Student}}
+  </td>
+  <td class="text-capitalize">\{{reference}}</td>
+  <td>\{{amount}}</td>
+  <td>\{{paymentDate}}</td>
+  <td>
+    <div class="d-flex justify-content-between">
+      <form action="" method="post" class="update-payment-form mr-1">
+        <input type="hidden" name="id" value="\{{id}}"/>
+        <input type="hidden" name="status" value="used" />
+        <button class="btn btn-success btn-sm">confirm</button>
+      </form>
+    </div>
+  </td>
+</tr>
+\{{/payments}}
+</script>

@@ -1,0 +1,51 @@
+{{>_mainNav}}
+<div class="wrapper">
+  <div class="container-fluid signin py-3">
+    <div class="row">
+      <div class="col-11 col-md-5 mx-auto" style="margin-top: 9%;">
+        <div class="card">
+          <div
+            class="card-header d-flex justify-content-between align-items-center bg-black gray text-uppercase text-warning bg-dark">
+            <i class="fas fa-sign-in-alt fa-2x orange"></i>
+            <h5 class="card-title">Account Signin</h5>
+          </div>
+
+          <div class="card-body">
+
+            <form action="" method="POST" id="student-login">
+              <div class="alert hidden text-center" id="msg-box"></div>
+
+              <div class="form-group input-group py-2">
+                <span class="input-group-append">
+                  <span class="input-group-text">
+                    <i class="fas fa-envelope text-success"></i>
+                  </span>
+                </span>
+                <input type="email" name="emailAddress" class="form-control" placeholder="Email Address"
+                  id="emailAddress" autocomplete="off" />
+              </div>
+
+              <div class="form-group input-group">
+                <span class="input-group-append">
+                  <span class="input-group-text">
+                    <i class="fas fa-lock text-success"></i>
+                  </span>
+                </span>
+                <input type="password" name="password" class="form-control" placeholder="password" id="password"
+                  autocomplete="off" />
+              </div>
+
+              <div class="form-group text-center">
+                <button type="submit" class="btn btn-success text-uppercase">
+                  sign in
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{>_mainFooter}}

@@ -1,0 +1,213 @@
+<span id="admin-student-page"></span>
+{{>_adminNav}}
+<div class="container-fluid mb-5">
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-9 ml-auto">
+
+      <div class="row my-4 py-2">
+        <div class="col-12">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active text-warning font-weight-bold text-uppercase" data-toggle="tab" href="#home">
+                students
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning font-weight-bold text-uppercase" data-toggle="tab" href="#revoke-student">
+                disabled accounts
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-12 py-2">
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active container" id="home">
+              <form action="" method="get">
+                <div class="form-group input-group">
+                  <input type="search" name="searchquery" class="form-control" />
+                  <span class="input-group-append">
+                    <button class="input-group-text text-uppercase font-weight-bold bg-warning">
+                      <span>search</span>
+                      <i class="fas fa-search ml-1"></i>
+                    </button>
+                  </span>
+                </div>
+              </form>
+
+              <div class="card shadowed">
+                <div class="card-body">
+                  <div class="scrollable" style="max-height: 450px; min-height: 200px; position: relative;">
+                    <table class="table table-striped" style="width: 980px;">
+                      <thead class="text-uppercase">
+                        <tr>
+                          <th>sn</th>
+                          <th>
+                            Surname
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Other Names
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Email Address
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Matric No
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Level
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Department
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="student-row-pane"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane container" id="revoke-student">
+              <div class="card shadowed">
+                <div class="card-body">
+                  <form action="" method="get">
+                    <div class="form-group input-group">
+                      <input type="search" name="searchquery" class="form-control" autocomplete="off"
+                        placeholder="search by Email Address or Matric no" />
+                      <span class="input-group-append">
+                        <button class="input-group-text text-uppercase font-weight-bold bg-warning">
+                          <span>search</span>
+                          <i class="fas fa-search ml-1"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </form>
+
+                  <div class="scrollable" style="max-height: 450px; min-height: 200px; position: relative;">
+                    <table class="table table-striped">
+                      <thead class="text-uppercase">
+                        <tr>
+                          <th>sn</th>
+                          <th>
+                            Full Name
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Email Address
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Matric No
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            Department
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                          <th>
+                            action
+                            <a href="#">
+                              <i class="fas fa-sort-amount-down-alt text-success ml-1"></i>
+                            </a>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="disabled-account-row-pane"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script type="mustache/template" id="student-row-template">
+\{{#students}}
+<tr>
+  <td>\{{sn}}.</td>
+  <td class="text-capitalize">\{{surname}}</td>
+  <td class="text-capitalize">\{{othernames}}</td>
+  <td>
+    \{{emailAddress}}
+  </td>
+  <td class="text-uppercase">\{{matricNo}}</td>
+  <td>\{{Level.name}}</td>
+  <td class="text-capitalize">\{{Department.name}}</td>
+</tr>
+\{{/students}}
+
+\{{^students}}
+<div class="text-muted text-center mt-3" style="position: absolute; left: 50%; transform: translateX(-50%);">
+  <i class="fas fa-info-circle fa-3x"></i>
+  <p>No student record found</p>
+</div>
+\{{/students}}
+</script>
+
+
+<script type="mustache/template" id="disabled-account-row-template">
+\{{#students}}
+<tr>
+  <td>\{{sn}}.</td>
+  <td class="text-capitalize">\{{surname}} \{{othernames}}</td>
+  <td>
+    \{{emailAddress}}
+  </td>
+  <td class="text-uppercase">\{{matricNo}}</td>
+  <td class="text-capitalize">\{{Department.name}}</td>
+  <td>
+    <form action="" method="post" class="activate-student-form">
+      <input type="hidden" name="id" value="\{{id}}" />
+      <input type="hidden" name="activated" value="1" />
+      <input type="hidden" name="deletedAt" value="1" />
+      <button class="btn btn-sm btn-success font-weight-bold">
+        activate
+      </button>
+    </form>
+  </td>
+</tr>
+\{{/students}}
+
+\{{^students}}
+<div class="text-muted text-center mt-3" style="position: absolute; left: 50%; transform: translateX(-50%);">
+  <i class="fas fa-info-circle fa-3x"></i>
+  <p>No student record found</p>
+</div>
+\{{/students}}
+</script>
