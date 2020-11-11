@@ -88,6 +88,7 @@ module.exports = (
                 uploadDir,
                 fields,
                 fileName: newFileName,
+                env: "development"
               };
               req.uploadStatus = uploadStatus;
               next();

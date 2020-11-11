@@ -8,19 +8,19 @@ const {
   splitDateTime,
   timeDiff,
   voteCounter,
-} = require('../src/helpers');
-const BaseModel = require('../database/models');
-const sequelize = require('sequelize');
-const bcrypt = require('bcryptjs');
-const passport = require('passport');
-const { sendMail } = require('../services/mailer');
+} = require("../src/helpers");
+const BaseModel = require("../database/models");
+const sequelize = require("sequelize");
+const bcrypt = require("bcryptjs");
+const passport = require("passport");
+const { sendMail } = require("../services/mailer");
 exports.getDepartments = async (req, res, next) => {
   const filter = { where: {} };
   let { searchquery } = req.query;
 
   if (searchquery) {
     searchquery = `%${searchquery}%`;
-    filter.where['name'] = {
+    filter.where["name"] = {
       [sequelize.Op.like]: searchquery,
     };
   }
@@ -38,7 +38,7 @@ exports.getDepartments = async (req, res, next) => {
       return department;
     });
     res.status(200);
-    res.json({ error: null, message: 'success', departments });
+    res.json({ error: null, message: "success", departments });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -53,7 +53,7 @@ exports.updateDepartment = async (req, res, next) => {
       where: { id },
     });
     res.status(200);
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -64,7 +64,7 @@ exports.deleteDepartment = async (req, res, next) => {
   try {
     let result = await BaseModel.Department.destroy({ where: { id } });
     res.status(200);
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -80,8 +80,8 @@ exports.saveDepartment = async (req, res, next) => {
     if (departmentExist) {
       res.status(200);
       return res.json({
-        error: { name: 'department already exists' },
-        message: 'Operation Failed.',
+        error: { name: "department already exists" },
+        message: "Operation Failed.",
       });
     }
     let department = await BaseModel.Department.findOne({
@@ -96,7 +96,7 @@ exports.saveDepartment = async (req, res, next) => {
     }
 
     res.status(200);
-    res.json({ error: null, message: 'success', department });
+    res.json({ error: null, message: "success", department });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -111,7 +111,7 @@ exports.getLevels = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.json({ error: { message: 'operation failed' } });
+    res.json({ error: { message: "operation failed" } });
   }
 };
 
@@ -129,22 +129,22 @@ exports.getElections = async (req, res, next) => {
 
   if (searchquery) {
     searchquery = `%${searchquery}%`;
-    filter.where['title'] = {
+    filter.where["title"] = {
       [sequelize.Op.like]: searchquery,
     };
   }
 
   if (title) {
     title = `%${title}%`;
-    filter.where['title'] = {
+    filter.where["title"] = {
       [sequelize.Op.like]: title,
     };
   }
 
-  if (status === 'active') {
+  if (status === "active") {
     const dateNow = new Date();
     //filter.where['startDateTime'] = { [sequelize.Op.lte]: dateNow };
-    filter.where['endDateTime'] = { [sequelize.Op.gte]: dateNow };
+    filter.where["endDateTime"] = { [sequelize.Op.gte]: dateNow };
   }
 
   try {
@@ -175,7 +175,7 @@ exports.getElections = async (req, res, next) => {
     });
 
     res.status(200);
-    res.json({ error: null, elections, message: 'success' });
+    res.json({ error: null, elections, message: "success" });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -189,11 +189,11 @@ exports.updateElection = async (req, res, next) => {
       where: { id },
     });
     res.status(200);
-    res.json({ error: null, result, message: 'success' });
+    res.json({ error: null, result, message: "success" });
   } catch (error) {
     console.log(error);
     res.status(200);
-    res.json({ error: { editForm: 'Operation failed.' } });
+    res.json({ error: { editForm: "Operation failed." } });
   }
 };
 exports.deleteElection = async (req, res, next) => {
@@ -201,11 +201,11 @@ exports.deleteElection = async (req, res, next) => {
   try {
     const result = await BaseModel.Election.destroy({ where: { id } });
     res.status(200);
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.send({ error: { message: 'operation failed.' } });
+    res.send({ error: { message: "operation failed." } });
   }
 };
 exports.saveElection = async (req, res, next) => {
@@ -220,8 +220,8 @@ exports.saveElection = async (req, res, next) => {
     if (electionExists) {
       res.status(200);
       return res.json({
-        error: { title: 'title already exists' },
-        message: 'operation failed',
+        error: { title: "title already exists" },
+        message: "operation failed",
       });
     }
 
@@ -275,12 +275,12 @@ exports.saveElection = async (req, res, next) => {
     transaction.commit();
 
     res.status(200);
-    res.json({ error: null, message: 'success', election, electionPositions });
+    res.json({ error: null, message: "success", election, electionPositions });
   } catch (error) {
     console.log(error);
     transaction.rollback();
     res.status(500);
-    res.send({ error: { message: 'operation failed' } });
+    res.send({ error: { message: "operation failed" } });
   }
 };
 
@@ -339,7 +339,7 @@ exports.deletePosition = async (req, res, next) => {
   console.log(req.body);
   try {
     let result = await BaseModel.Position.destroy({ where: { id } });
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     res.status(500);
     console.log(error);
@@ -355,7 +355,7 @@ exports.savePosition = async (req, res, next) => {
     if (positionExists) {
       res.status(200);
       return res.json({
-        error: { title: 'Title already exists.' },
+        error: { title: "Title already exists." },
       });
     }
     let position = await BaseModel.Position.findOne({
@@ -371,7 +371,7 @@ exports.savePosition = async (req, res, next) => {
     }
 
     res.status(200);
-    return res.json({ error: null, message: 'success.' });
+    return res.json({ error: null, message: "success." });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -389,8 +389,8 @@ exports.saveElectionPosition = async (req, res, next) => {
     if (positionExists) {
       res.status(200);
       return res.json({
-        error: { electionPosition: 'Position already exists.' },
-        message: 'success',
+        error: { electionPosition: "Position already exists." },
+        message: "success",
       });
     }
 
@@ -402,11 +402,11 @@ exports.saveElectionPosition = async (req, res, next) => {
       where: { id: electionPosition.null },
     });
     res.status(200);
-    res.json({ error: null, electionPosition, message: 'success' });
+    res.json({ error: null, electionPosition, message: "success" });
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.json({ error: { message: 'failed' } });
+    res.json({ error: { message: "failed" } });
   }
 };
 
@@ -415,11 +415,11 @@ exports.deleteElectionPosition = async (req, res, next) => {
   try {
     const result = await BaseModel.ElectionPosition.destroy({ where: { id } });
     res.status(200);
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.send({ error: { message: 'operation failed.' } });
+    res.send({ error: { message: "operation failed." } });
   }
 };
 exports.getElectionPositions = async (req, res, next) => {
@@ -430,19 +430,19 @@ exports.getElectionPositions = async (req, res, next) => {
   };
 
   if (id) {
-    filter.where['id'] = { [sequelize.Op.eq]: id };
+    filter.where["id"] = { [sequelize.Op.eq]: id };
   }
 
   if (electionid) {
-    filter.where['electionId'] = { [sequelize.Op.eq]: electionid };
+    filter.where["electionId"] = { [sequelize.Op.eq]: electionid };
   }
 
   try {
     let electionPositions = await BaseModel.ElectionPosition.findAll(filter);
-    res.json({ error: null, message: 'success', electionPositions });
+    res.json({ error: null, message: "success", electionPositions });
   } catch (error) {
     res.status(500);
-    res.json({ error: { message: 'operation failed' } });
+    res.json({ error: { message: "operation failed" } });
   }
 };
 
@@ -454,7 +454,7 @@ exports.getStudents = async (req, res, next) => {
   };
 
   if (activated) {
-    filter.where['activated'] = { [sequelize.Op.eq]: Number(activated) };
+    filter.where["activated"] = { [sequelize.Op.eq]: Number(activated) };
   }
 
   if (searchquery) {
@@ -469,7 +469,7 @@ exports.getStudents = async (req, res, next) => {
     let students;
 
     if (disabled) {
-      filter['paranoid'] = false;
+      filter["paranoid"] = false;
       students = (await BaseModel.Student.findAll(filter)).map(
         (student, index) => {
           student.dataValues.sn = index + 1;
@@ -486,7 +486,7 @@ exports.getStudents = async (req, res, next) => {
     }
 
     res.status(200);
-    res.json({ error: null, message: 'success', students });
+    res.json({ error: null, message: "success", students });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -519,7 +519,7 @@ exports.updateStudent = async (req, res, next) => {
     }
 
     res.status(200);
-    res.json({ error: null, message: 'success' });
+    res.json({ error: null, message: "success" });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -532,7 +532,7 @@ exports.deleteStudent = async (req, res, next) => {
   try {
     const result = await BaseModel.Student.destroy({ where: { id } });
     res.status(200);
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -564,8 +564,8 @@ exports.saveStudent = async (req, res, next) => {
     if (emailExists) {
       res.status(200);
       return res.json({
-        error: { emailAddress: 'email already exists' },
-        message: 'operation failed',
+        error: { emailAddress: "email already exists" },
+        message: "operation failed",
       });
     }
 
@@ -575,8 +575,8 @@ exports.saveStudent = async (req, res, next) => {
     if (matricNoExists) {
       res.status(200);
       return res.json({
-        error: { matricno: 'matric no already exists' },
-        message: 'operation failed',
+        error: { matricno: "matric no already exists" },
+        message: "operation failed",
       });
     }
 
@@ -606,20 +606,20 @@ exports.saveStudent = async (req, res, next) => {
     // }
 
     res.status(200);
-    res.json({ error: null, message: 'success', student });
+    res.json({ error: null, message: "success", student });
   } catch (error) {
     console.log(error);
     res.status(500);
     res.json({
-      error: { formError: 'failed to save student data' },
-      message: 'operation failed',
+      error: { formError: "failed to save student data" },
+      message: "operation failed",
     });
   }
 };
 
 const login = (model, req, res, next) => {
-  require('../services/passport')(passport, model);
-  passport.authenticate('local', (error, user, info) => {
+  require("../services/passport")(passport, model);
+  passport.authenticate("local", (error, user, info) => {
     if (!user) {
       res.status(200);
       return res.json({ error: true, ...info });
@@ -629,16 +629,16 @@ const login = (model, req, res, next) => {
       if (error) return next(error);
 
       res.status(200);
-      res.json({ error: null, message: 'login success' });
+      res.json({ error: null, message: "login success" });
     });
   })(req, res, next);
 };
 
 exports.loginStudent = (req, res, next) => {
-  login('Student', req, res, next);
+  login("Student", req, res, next);
 };
 exports.loginAdmin = (req, res, next) => {
-  login('Admin', req, res, next);
+  login("Admin", req, res, next);
 };
 
 exports.getCandidates = async (req, res, next) => {
@@ -687,11 +687,11 @@ exports.getCandidates = async (req, res, next) => {
       }
     );
     res.status(200);
-    res.json({ error: null, candidates, message: 'success' });
+    res.json({ error: null, candidates, message: "success" });
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.json({ error: { message: 'operation failed' } });
+    res.json({ error: { message: "operation failed" } });
   }
 };
 
@@ -705,11 +705,11 @@ exports.updateCandidate = async (req, res, next) => {
       where: { id },
     });
     res.status(200);
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.json({ error: { message: 'operation failed' } });
+    res.json({ error: { message: "operation failed" } });
   }
 };
 exports.deleteCandidate = (req, res, next) => {};
@@ -757,7 +757,7 @@ exports.getPayments = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.json({ error: { message: 'operation failed' } });
+    res.json({ error: { message: "operation failed" } });
   }
 };
 exports.updatePayment = async (req, res, next) => {
@@ -770,7 +770,7 @@ exports.updatePayment = async (req, res, next) => {
       where: { id },
     });
     res.status(200);
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -783,12 +783,12 @@ exports.savePayment = (req, res, next) => {};
 exports.getCurrentUser = (req, res, next) => {
   try {
     res.status(200);
-    res.json({ error: null, message: 'success', user: req.user || null });
+    res.json({ error: null, message: "success", user: req.user || null });
   } catch (error) {
     console.log(error);
     res.status(200);
     res.json({
-      error: { message: 'operation failed' },
+      error: { message: "operation failed" },
       user: null,
     });
   }
@@ -828,12 +828,12 @@ exports.makePayment = async (req, res, next) => {
     });
     transaction.commit();
     res.status(200);
-    res.json({ error: null, status: 'success', candidate });
+    res.json({ error: null, status: "success", candidate });
   } catch (error) {
     console.log(error);
     transaction.rollback();
     res.status(500);
-    res.json({ error: { message: 'operation failed' } });
+    res.json({ error: { message: "operation failed" } });
   }
 };
 
@@ -849,14 +849,14 @@ exports.getElectionCandidates = async (req, res, next) => {
             electionId: electionid,
             canContest: cancontest,
           },
-          order: [['candidateId', 'ASC']],
+          order: [["candidateId", "ASC"]],
           include: { model: BaseModel.Student },
         },
         {
           model: BaseModel.Position,
         },
       ],
-      order: [['positionId', 'ASC']],
+      order: [["positionId", "ASC"]],
     };
 
     let totalVotes = {};
@@ -879,7 +879,7 @@ exports.getElectionCandidates = async (req, res, next) => {
     res.status(200);
     res.json({
       error: null,
-      message: 'success',
+      message: "success",
       electionCandidates,
       totalVotes,
     });
@@ -946,7 +946,7 @@ exports.getElectionResult = async (req, res, next) => {
     });
 
     res.status(200),
-      res.json({ error: null, message: 'success', electionResults });
+      res.json({ error: null, message: "success", electionResults });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -965,29 +965,29 @@ const changePassword = async (model, data = {}) => {
     return result;
   } catch (error) {
     console.log(error);
-    throw new Error('failed to reset password');
+    throw new Error("failed to reset password");
   }
 };
 
 exports.changeStudentPassword = (req, res, next) => {
   try {
-    const result = changePassword('Student', req.body);
+    const result = changePassword("Student", req.body);
     res.status(200);
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     res.status(200);
     res.json({
-      error: { resetPasswordMsg: 'operation failed' },
-      message: 'failed',
+      error: { resetPasswordMsg: "operation failed" },
+      message: "failed",
     });
   }
 };
 
 const changeAvatar = async (model, uploadStatus) => {
   try {
-    const { err, uploadDir, fields, fileName } = uploadStatus;
+    const { err, uploadDir, fields, fileName, env } = uploadStatus;
     const updateData = {
-      avatar: `/images/uploads/${fileName}`,
+      avatar: env === "production" ? "" : `/images/uploads/${fileName}`,
     };
     const result = await BaseModel[model].update(updateData, {
       where: { id: fields.id },
@@ -995,29 +995,29 @@ const changeAvatar = async (model, uploadStatus) => {
     return `/images/uploads/${fileName}`;
   } catch (error) {
     console.log(error);
-    throw new Error('Operation failed');
+    throw new Error("Operation failed");
   }
 };
 
 exports.changeStudentAvatar = async (req, res, next) => {
   try {
     if (req.uploadStatus.err == null) {
-      let uploadDir = await changeAvatar('Student', req.uploadStatus);
+      let uploadDir = await changeAvatar("Student", req.uploadStatus);
 
       res.status(200);
-      res.json({ error: null, message: 'success', avatar: uploadDir });
+      res.json({ error: null, message: "success", avatar: uploadDir });
     } else {
       res.status(200);
       res.json({
         error: { uploadAvatar: req.uploadStatus.err },
-        message: 'success',
+        message: "success",
         avatar: uploadDir,
       });
     }
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.json({ errror: { message: 'operation failed' } });
+    res.json({ errror: { message: "operation failed" } });
   }
 };
 
@@ -1030,7 +1030,7 @@ exports.saveAdmin = async (req, res, next) => {
   const salt = bcrypt.genSaltSync(12);
   const hash = bcrypt.hashSync(password, salt);
 
-  newAdmin['password'] = hash;
+  newAdmin["password"] = hash;
 
   try {
     const emailExists = await BaseModel.Admin.findOne({
@@ -1039,50 +1039,50 @@ exports.saveAdmin = async (req, res, next) => {
     if (emailExists) {
       res.status(200);
       return res.json({
-        error: { emailAddress: 'email address already exists' },
+        error: { emailAddress: "email address already exists" },
       });
     }
     const admin = await BaseModel.Admin.create(newAdmin);
     res.status(200);
-    res.json({ error: null, admin, message: 'success' });
+    res.json({ error: null, admin, message: "success" });
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.json({ error: { message: 'operation failed' } });
+    res.json({ error: { message: "operation failed" } });
   }
 };
 
 exports.changeAdminAvatar = async (req, res, next) => {
   try {
     if (req.uploadStatus.err == null) {
-      let uploadDir = await changeAvatar('Admin', req.uploadStatus);
+      let uploadDir = await changeAvatar("Admin", req.uploadStatus);
 
       res.status(200);
-      res.json({ error: null, message: 'success', avatar: uploadDir });
+      res.json({ error: null, message: "success", avatar: uploadDir });
     } else {
       res.status(200);
       res.json({
         error: { uploadAvatar: req.uploadStatus.err },
-        message: 'success',
+        message: "success",
         avatar: uploadDir,
       });
     }
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.json({ errror: { message: 'operation failed' } });
+    res.json({ errror: { message: "operation failed" } });
   }
 };
 exports.changeAdminPassword = (req, res, next) => {
   try {
-    const result = changePassword('Admin', req.body);
+    const result = changePassword("Admin", req.body);
     res.status(200);
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     res.status(200);
     res.json({
-      error: { resetPasswordMsg: 'operation failed' },
-      message: 'failed',
+      error: { resetPasswordMsg: "operation failed" },
+      message: "failed",
     });
   }
 };
@@ -1094,11 +1094,11 @@ exports.updateAdmin = async (req, res, next) => {
     const result = await BaseModel.Admin.update(updateData, { where: { id } });
 
     res.status(200);
-    res.json({ error: null, message: 'success', result });
+    res.json({ error: null, message: "success", result });
   } catch (error) {
     console.log(error);
     res.status(500);
-    res.json({ error: { updateMsg: 'operation failed' }, message: 'failed' });
+    res.json({ error: { updateMsg: "operation failed" }, message: "failed" });
   }
 };
 
@@ -1107,11 +1107,11 @@ exports.mailer = async (req, res, next) => {
 
   try {
     const admin = await BaseModel.Admin.findOne({
-      where: { userRole: 'superuser' },
+      where: { userRole: "superuser" },
     });
     if (!admin) {
       res.status(200);
-      return res.json({ error: { message: 'message sending failed' } });
+      return res.json({ error: { message: "message sending failed" } });
     }
 
     message = `
@@ -1122,16 +1122,16 @@ exports.mailer = async (req, res, next) => {
 
     const info = await sendMail({
       to: emailAddress,
-      from: 'myproject2019@aol.com',
+      from: "myproject2019@aol.com",
       html: message,
-      subject: 'Contact from Evoting.',
+      subject: "Contact from Evoting.",
     });
     console.log(info);
     res.status(200);
-    res.json({ error: null, message: 'success' });
+    res.json({ error: null, message: "success" });
   } catch (error) {
     console.log(error);
     res.status(200);
-    res.json({ error: { message: 'operation failed' } });
+    res.json({ error: { message: "operation failed" } });
   }
 };
