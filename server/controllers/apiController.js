@@ -987,7 +987,7 @@ const changeAvatar = async (model, uploadStatus) => {
   try {
     const { err, uploadDir, fields, fileName, env } = uploadStatus;
     const updateData = {
-      avatar: env === "production" ? "" : `/images/uploads/${fileName}`,
+      avatar: env === "production" ? fileName : `/images/uploads/${fileName}`,
     };
     const result = await BaseModel[model].update(updateData, {
       where: { id: fields.id },
