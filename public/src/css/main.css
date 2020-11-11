@@ -6,7 +6,7 @@
 
 html {
   text-rendering: optimizeLegibility;
-  font-size: 18px;
+  font-size: 14px !important;
   font-family: Cambria, Georgia, sans-serif;
 }
 
@@ -38,7 +38,7 @@ header {
 .line2,
 .line3 {
   border: 2px solid #eee;
-  width: 35px;
+  width: 25px;
   margin: 4px;
   display: block;
   transition: transform 0.4s;
@@ -94,6 +94,10 @@ header {
   min-height: 80vh;
 }
 
+.img-circle {
+  border-radius: 50%;
+}
+
 .sidebar,
 .mainSidebar {
   background-color: #000;
@@ -103,7 +107,7 @@ header {
 }
 
 .mainSidebar {
-  margin-top: 63px;
+  margin-top: 53px;
   max-height: 100vh;
   height: 100vh;
   color: #eee;
@@ -249,7 +253,7 @@ header {
 /* Media Rules */
 @media screen and (max-width: 991px) {
   .mainSidebar {
-    margin-top: 62px;
+    margin-top: 52px;
   }
 }
 @media screen and (max-width: 575px) {

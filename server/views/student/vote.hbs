@@ -53,16 +53,6 @@
         \{{#Candidates}}
         <div class="col-9 col-sm-12 col-md-8 col-lg-4 mb-3 mx-auto">
           <div class="card bg-light shadowed">
-            <div class="card-header">
-              <div class="d-flex justify-content-around align-items-center">
-                <span class="text-uppercase font-weight-bold badge badge-light">
-                  Total Votes
-                </span>
-                <span class="badge badge-warning" id="vote-counter-\{{id}}" style="font-size: 150%">
-                    0
-                </span>
-              </div>
-            </div>
             <div class="card-body p-0 m-0 text-center text-light" style="background: #000;">
               \{{#Student}}
               <img src="\{{avatar}}" alt="avatar" class="img-circle img-fluid"
@@ -77,6 +67,16 @@
               </h6>
             </div>
             <div class="card-footer text-center">
+              <div class="d-flex justify-content-center">
+                <div class="badge badge-warning">
+                  <span class="text-uppercase font-weight-bold">
+                  Votes:
+                </span>
+                <span id="vote-counter-\{{id}}">
+                    0
+                </span>
+                </div>
+              </div>
               <div class="d-sm-flex justify-content-sm-between">
                 <form action="" method="post" class="voting-form">
                   <input type="hidden" name="candidateId" value="\{{id}}" />

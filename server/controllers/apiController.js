@@ -378,71 +378,6 @@ exports.savePosition = async (req, res, next) => {
   }
 };
 
-// const voteCounter = (votes, totalVotes = {}) => {
-//   for (vote of votes) {
-//     let cid = vote.Candidate.id;
-
-//     if (totalVotes.hasOwnProperty(cid)) {
-//       totalVotes[cid]++;
-//     } else {
-//       totalVotes[cid] = 1;
-//     }
-//   }
-//   return totalVotes;
-// };
-
-// exports.getVotes = (req, res, next) => {};
-// exports.updateVote = (req, res, next) => {};
-// exports.deleteVote = (req, res, next) => {};
-// exports.saveVote = async (req, res, next) => {
-//   const { electionId, candidateId, electionPositionId } = sanitize(req.body);
-//   const studentId = req.user.id;
-//   const newVote = { electionPositionId, electionId, candidateId, studentId };
-
-//   try {
-//     const hasVoted = await BaseModel.Vote.findOne({
-//       where: { electionId, studentId, electionPositionId },
-//     });
-//     let id;
-
-//     if (hasVoted) {
-//       id = hasVoted.dataValues.id;
-//       await BaseModel.Vote.update({ candidateId }, { where: { id } });
-//     } else {
-//       id = await BaseModel.Vote.create(newVote);
-//     }
-
-//     var totalVotes = {};
-
-//     (
-//       await BaseModel.Candidate.findAll({
-//         where: { electionId, electionPositionId },
-//       })
-//     ).map((candidate) => {
-//       totalVotes[candidate.id] = 0;
-//     });
-
-//     const votes = await BaseModel.Vote.findAll({
-//       where: { electionId, electionPositionId },
-//       include: [
-//         { model: BaseModel.Candidate, include: { model: BaseModel.Student } },
-//       ],
-//       order: [['candidateId', 'ASC']],
-//     });
-
-//     totalVotes = voteCounter(votes, totalVotes);
-
-//     res.status(200);
-//     res.json({ error: null, totalVotes });
-
-//     console.log(totalVotes);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500);
-//     res.json({ error: { message: 'operation failed' } });
-//   }
-// };
-
 exports.saveElectionPosition = async (req, res, next) => {
   const { electionId, positionId, formPrice } = req.body;
   const newElectionPosition = { electionId, positionId, formPrice };
@@ -987,16 +922,6 @@ exports.getElectionResult = async (req, res, next) => {
   const { electionid } = req.query;
 
   try {
-    // const totalVotes = {};
-    // const candidates = (
-    //   await BaseModel.Candidate.findAll({ where: { electionId: electionid } })
-    // ).map((candidate, index) => {
-    //   candidate.dataValues.sn = index + 1;
-    //   totalVotes[candidate.dataValues.id] = 0;
-    //   return candidate;
-    // });
-    // const votes = BaseModel.Vote.findAll({ where: { electionId: electionid } });
-    // voteCounter(votes, totalVotes);
     const electionResults = (
       await BaseModel.Candidate.findAll({
         where: { electionId: electionid },

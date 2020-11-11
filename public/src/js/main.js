@@ -154,7 +154,7 @@ var ValidatorModule = function () {
       return val !== '';
     },
     isStrongPassword: function (val) {
-      return /^(?=.*[a-z])(?=.*\d)[\S]{6,10}$/.test(val);
+      return /^(?=.*[a-z])(?=.*\d)[\S]{6,20}$/.test(val);
     },
     isEmail: function (val) {
       return /^(\w)+@(\w)+\.(\w){2,}$/.test(val);
